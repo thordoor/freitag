@@ -9,8 +9,11 @@ const showCountdown = () => {
     00
   ).getTime();
 
-  const distance = countDownTime - today.getTime();
-  if (distance < 0) {
+  let distance = countDownTime - today.getTime();
+  if (distance <= 0) {
+    document.getElementById("ameno-now").style.display = "flex";
+    const audioPlayer = document.getElementById("ameno-sound");
+    audioPlayer.play();
     return;
   }
 
@@ -28,10 +31,10 @@ const showCountdown = () => {
 const firstFridayInCurrentMonth = () => {
   const m = new Date().getMonth();
   const year = new Date().getFullYear();
-  const month = m - 1;
+  const month = m + 1;
   const dateString = `${month}/01/${year}`;
-  return 4;
-  return 6 - new Date(dateString).getDay();
+  const date = 6 - new Date(dateString).getDay();
+  return date === 0 ? 7 : date;
 };
 
 const isFreitag = () => {
